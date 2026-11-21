@@ -1,0 +1,1741 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qian<span style="color:var(--blue)">fan</span> 千帆 Satellite Link - APK Preview</title>
+  <style>
+    :root {
+      --bg: #050b18;
+      --panel: #0d1b2a;
+      --panel-2: #102237;
+      --line: #21354e;
+      --blue: #0066ff;
+      --cyan: #00d4ff;
+      --green: #2c86ff;
+      --red: #ff5252;
+      --text: #eef6ff;
+      --muted: #97a5b8;
+      --violet: #7b61ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 70% 5%, rgba(0, 102, 255, .24), transparent 35%),
+        radial-gradient(circle at 20% 85%, rgba(0, 212, 255, .12), transparent 30%),
+        #02050c;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 28px 18px 40px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      display: grid;
+      place-items: center;
+      box-shadow: 0 16px 42px rgba(0, 102, 255, .35);
+    }
+
+    .mark::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border: 3px solid white;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      transform: rotate(-35deg);
+      border-radius: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: rgba(13, 27, 42, .84);
+      color: var(--text);
+      padding: 10px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    button.active,
+    button.primary {
+      border-color: rgba(0, 212, 255, .5);
+      background: linear-gradient(135deg, var(--blue), #1688ff);
+      box-shadow: 0 14px 30px rgba(0, 102, 255, .22);
+    }
+
+    .stage {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .phone {
+      position: sticky;
+      top: 24px;
+      width: 330px;
+      height: 690px;
+      border: 1px solid #2b3d58;
+      border-radius: 28px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 70% 6%, rgba(0, 102, 255, .22), transparent 36%),
+        linear-gradient(#071122, var(--bg));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .48), inset 0 0 0 1px rgba(255, 255, 255, .03);
+    }
+
+    .screen {
+      display: none;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen.active { display: block; }
+
+    .splash-screen {
+      padding: 0;
+      background: #030811;
+    }
+
+    .splash-screen .content {
+      height: 100%;
+      padding: 34px 18px 30px;
+    }
+
+    .splash-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      background: #030811;
+    }
+
+    .splash-dim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(2, 6, 14, .04) 0%, rgba(2, 6, 14, .08) 48%, rgba(2, 6, 14, .82) 77%, rgba(2, 6, 14, .98) 100%);
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      opacity: .7;
+      background-image:
+        radial-gradient(circle, rgba(79, 184, 255, .8) 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(255, 255, 255, .55) 1px, transparent 1.3px);
+      background-size: 38px 44px, 61px 55px;
+      pointer-events: none;
+    }
+
+    .content { 
+      position: relative; 
+      z-index: 1;
+      height: 100%;
+      overflow-y: auto;
+      padding: 24px 18px 86px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      margin-bottom: 20px;
+      position: relative;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .back {
+      position: absolute;
+      left: 0;
+      color: var(--text);
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+    }
+
+    .back svg,
+    .ring-icon svg,
+    .settings-chevron svg {
+      display: block;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .back svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .settings-link {
+      position: absolute;
+      right: 0;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .06em;
+    }
+
+    .satellite {
+      width: 116px;
+      height: 72px;
+      margin: 42px auto 18px;
+      position: relative;
+      animation: float 3.2s ease-in-out infinite;
+    }
+
+    .onboarding-visual {
+      height: 270px;
+      display: grid;
+      place-items: center;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    .orbit {
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 212, 255, .28);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 24px rgba(0, 102, 255, .04), inset 0 0 44px rgba(0, 212, 255, .06);
+    }
+
+    .mini-earth {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 32% 28%, rgba(0, 212, 255, .5), transparent 30%),
+        linear-gradient(145deg, #1b7bd4, #061a38 68%);
+      border: 2px solid rgba(0, 212, 255, .45);
+      box-shadow: 0 0 36px rgba(0, 212, 255, .18);
+    }
+
+    .orbit .satellite {
+      position: absolute;
+      width: 92px;
+      height: 58px;
+      margin: 0;
+      transform: translate(72px, -82px) scale(.72);
+    }
+
+    .speed-orb {
+      width: 230px;
+      height: 150px;
+      border-radius: 230px 230px 24px 24px;
+      border: 11px solid #143253;
+      border-bottom: 0;
+      position: relative;
+      box-shadow: inset 0 0 40px rgba(0, 212, 255, .08);
+    }
+
+    .speed-orb::before {
+      content: "";
+      position: absolute;
+      inset: -11px -11px auto -11px;
+      height: 150px;
+      border-radius: 230px 230px 24px 24px;
+      border: 11px solid var(--cyan);
+      border-bottom: 0;
+      clip-path: polygon(0 0, 84% 0, 56% 100%, 0 100%);
+    }
+
+    .coverage-grid {
+      width: 232px;
+      height: 232px;
+      border-radius: 50%;
+      background:
+        linear-gradient(rgba(0, 212, 255, .16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, .16) 1px, transparent 1px),
+        radial-gradient(circle, rgba(0, 212, 255, .20), rgba(0, 102, 255, .10) 45%, rgba(5, 11, 24, .4));
+      background-size: 34px 34px, 34px 34px, auto;
+      border: 1px solid rgba(0, 212, 255, .35);
+      box-shadow: inset 0 0 44px rgba(0, 102, 255, .18), 0 0 38px rgba(0, 212, 255, .12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coverage-grid::before,
+    .coverage-grid::after {
+      content: "";
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      transform: rotate(-20deg);
+    }
+
+    .coverage-grid::before { top: 72px; }
+    .coverage-grid::after { top: 150px; transform: rotate(24deg); }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 26px 0 18px;
+    }
+
+    .dots i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #31445f;
+    }
+
+    .dots i.active { width: 22px; border-radius: 99px; background: var(--cyan); }
+
+    .loading-screen {
+      padding: 0;
+      background: #040914;
+    }
+
+    .loading-screen .content {
+      height: 100%;
+      padding: clamp(300px, 52vh, 430px) 26px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .loading-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      background: #040914;
+    }
+
+    .loading-dim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 58% 24%, rgba(0, 102, 255, .08), transparent 34%),
+        linear-gradient(180deg, rgba(3, 8, 18, .16) 0%, rgba(3, 8, 18, .20) 48%, rgba(3, 8, 18, .78) 100%);
+    }
+
+    .dish-scene {
+      position: relative;
+      width: 100%;
+      height: 340px;
+      margin-top: 32px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .dish-ground {
+      position: absolute;
+      left: -40px;
+      right: -40px;
+      bottom: 10px;
+      height: 112px;
+      border-radius: 50% 50% 0 0;
+      background: linear-gradient(180deg, #17345c, #050b18 78%);
+      box-shadow: 0 -8px 26px rgba(0, 102, 255, .28);
+    }
+
+    .dish {
+      position: absolute;
+      width: 122px;
+      height: 122px;
+      bottom: 58px;
+      left: 82px;
+      transform: rotate(-24deg);
+      z-index: 2;
+    }
+
+    .dish::before {
+      content: "";
+      position: absolute;
+      width: 86px;
+      height: 56px;
+      left: 18px;
+      top: 4px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 65% 34%, #ffffff, transparent 10%),
+        linear-gradient(135deg, #f1f6ff, #9eb3cc 62%, #e7f0ff);
+      border: 2px solid rgba(255, 255, 255, .78);
+      box-shadow: inset -8px -10px 18px rgba(4, 13, 28, .35);
+    }
+
+    .dish::after {
+      content: "";
+      position: absolute;
+      left: 57px;
+      top: 53px;
+      width: 13px;
+      height: 74px;
+      border-radius: 9px;
+      background: linear-gradient(#6d829f, #17253c);
+      transform: rotate(21deg);
+      transform-origin: top;
+    }
+
+    .dish-arm {
+      position: absolute;
+      width: 66px;
+      height: 4px;
+      left: 54px;
+      top: 42px;
+      border-radius: 99px;
+      background: #9db8d5;
+      transform: rotate(31deg);
+      z-index: 3;
+    }
+
+    .dish-arm::after {
+      content: "";
+      position: absolute;
+      right: -7px;
+      top: -6px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 16px rgba(0, 212, 255, .85);
+    }
+
+    .dish-rings {
+      position: absolute;
+      width: 166px;
+      height: 166px;
+      bottom: 92px;
+      left: 100px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 102, 255, .09);
+      box-shadow: 0 0 0 26px rgba(0, 102, 255, .025), 0 0 0 52px rgba(0, 102, 255, .018);
+    }
+
+    .loading-copy {
+      margin-top: 0;
+      text-align: center;
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+    }
+
+    .spinner {
+      display: none;
+    }
+
+    .loading-progress {
+      width: 260px;
+      height: 8px;
+      margin: 0 auto 16px;
+      background: rgba(4, 15, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .loading-progress i {
+      display: block;
+      height: 100%;
+      width: 55%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--cyan), #ffffff);
+      box-shadow: 0 0 12px var(--cyan);
+      position: relative;
+    }
+
+    .loading-progress i::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      filter: blur(4px);
+    }
+
+    .loading-percent {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+      color: #ffffff;
+      text-shadow: 0 2px 8px rgba(0, 212, 255, 0.4);
+    }
+
+    .loading-note {
+      text-align: center;
+      color: rgba(200, 210, 225, 0.85);
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .satellite .body {
+      position: absolute;
+      left: 43px;
+      top: 25px;
+      width: 30px;
+      height: 22px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #f7fbff, #9cb9d7);
+      transform: rotate(-25deg);
+    }
+
+    .satellite .wing {
+      position: absolute;
+      top: 23px;
+      width: 42px;
+      height: 24px;
+      border: 1px solid rgba(0, 212, 255, .7);
+      background: linear-gradient(135deg, #063f94, #0a8cff);
+      transform: rotate(-25deg);
+    }
+
+    .satellite .left { left: 0; }
+    .satellite .right { right: 0; }
+
+    .splash-sat {
+      width: 184px;
+      height: 118px;
+      margin: 64px auto 0;
+      transform: rotate(28deg) scale(1.02);
+      filter: drop-shadow(0 8px 20px rgba(122, 172, 255, .18));
+    }
+
+    .splash-sat .body {
+      left: 71px;
+      top: 42px;
+      width: 42px;
+      height: 32px;
+      border-radius: 14px 8px 14px 8px;
+      background:
+        radial-gradient(circle at 26% 40%, #ffffff, transparent 28%),
+        linear-gradient(135deg, #eef6ff, #738ba6 60%, #d8e9ff);
+      box-shadow: inset -5px -5px 10px rgba(7, 20, 40, .45);
+    }
+
+    .splash-sat .body::before {
+      content: "";
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      left: -27px;
+      top: -5px;
+      border-radius: 50%;
+      border: 3px solid rgba(236, 246, 255, .85);
+      border-right-color: transparent;
+      transform: rotate(28deg);
+    }
+
+    .splash-sat .body::after {
+      content: "";
+      position: absolute;
+      right: -22px;
+      top: 2px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #aebfd2, #50627b);
+    }
+
+    .splash-sat .wing {
+      top: 38px;
+      width: 70px;
+      height: 42px;
+      border-color: rgba(155, 197, 255, .75);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,.15) 1px, transparent 1px),
+        linear-gradient(135deg, #173d80, #254c8d);
+      background-size: 14px 42px, 70px 14px, auto;
+      transform: rotate(0deg);
+      box-shadow: inset 0 0 10px rgba(0, 212, 255, .16);
+    }
+
+    .splash-sat .left { left: 0; }
+    .splash-sat .right { right: 0; }
+
+    .earth {
+      position: absolute;
+      left: -80px;
+      right: -80px;
+      bottom: -95px;
+      height: 245px;
+      border-radius: 50% 50% 0 0;
+      background:
+        radial-gradient(circle at 45% 20%, rgba(0, 212, 255, .5), transparent 28%),
+        linear-gradient(180deg, #1a76c9, #05142b 70%);
+      border-top: 3px solid rgba(0, 212, 255, .75);
+      box-shadow: 0 -20px 50px rgba(0, 212, 255, .16);
+    }
+
+    .splash-earth {
+      position: absolute;
+      left: -122px;
+      right: -92px;
+      top: 270px;
+      height: 300px;
+      border-radius: 50%;
+      transform: rotate(-13deg);
+      background:
+        radial-gradient(circle at 36% 26%, rgba(255,255,255,.18), transparent 4%),
+        radial-gradient(circle at 28% 36%, rgba(255,255,255,.12), transparent 7%),
+        radial-gradient(circle at 52% 18%, rgba(0, 212, 255, .26), transparent 22%),
+        linear-gradient(145deg, #2b82ca 0%, #143b70 26%, #07152a 54%, #02070f 80%);
+      box-shadow:
+        0 -7px 18px rgba(154, 217, 255, .86),
+        0 -18px 38px rgba(0, 133, 255, .44),
+        inset 0 38px 70px rgba(255, 255, 255, .09);
+      opacity: 0;
+    }
+
+    .splash-logo {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 76px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .brand-name {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 850;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, .58);
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .brand-name .blue {
+      color: #2c86ff;
+    }
+
+    .brand-cn {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 850;
+      color: rgba(238, 246, 255, .94);
+      text-shadow: 0 2px 14px rgba(0, 0, 0, .58);
+    }
+
+    .splash-signal {
+      width: 72px;
+      height: 48px;
+      margin: 0 auto 8px;
+    }
+
+    .splash-signal span {
+      border-color: #1688ff;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-width: 6px;
+    }
+
+    .splash-signal span:nth-child(1) {
+      width: 24px;
+      height: 14px;
+      bottom: 0;
+    }
+
+    .splash-signal span:nth-child(2) {
+      width: 47px;
+      height: 27px;
+      bottom: 2px;
+    }
+
+    .splash-signal span:nth-child(3) {
+      width: 70px;
+      height: 40px;
+      bottom: 4px;
+    }
+
+    .splash-copy {
+      margin: 17px auto 8px;
+      color: rgba(190, 199, 214, .78);
+      font-size: 11px;
+      width: 118px;
+      text-align: center;
+    }
+
+    .splash-loader {
+      width: 118px;
+      height: 4px;
+      margin: 0 auto;
+      border-radius: 99px;
+      overflow: hidden;
+      background: #27425f;
+    }
+
+    .splash-loader i {
+      display: block;
+      width: 28%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #18a9ff, #4f7dff);
+      animation: initBar 9s linear forwards;
+    }
+
+    @keyframes initBar {
+      from { width: 28%; }
+      to { width: 100%; }
+    }
+
+    .signal {
+      width: 88px;
+      height: 58px;
+      margin: 0 auto 14px;
+      position: relative;
+    }
+
+    .signal span {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      border: 5px solid var(--blue);
+      border-bottom: 0;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-radius: 80px 80px 0 0;
+      transform: translateX(-50%);
+    }
+
+    .signal span:nth-child(1) { width: 30px; height: 16px; }
+    .signal span:nth-child(2) { width: 56px; height: 34px; }
+    .signal span:nth-child(3) { width: 82px; height: 52px; }
+
+    .center { text-align: center; }
+    .title-xl { font-size: 34px; font-weight: 800; margin: 8px 0 2px; }
+    .title { font-size: 24px; font-weight: 800; margin: 8px 0; }
+    .cyan { color: var(--cyan); }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .muted { color: var(--muted); }
+
+    .bar {
+      height: 7px;
+      border-radius: 99px;
+      background: #1c2d44;
+      overflow: hidden;
+    }
+
+    .bar > i {
+      display: block;
+      height: 100%;
+      width: 65%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+    }
+
+    .splash-bar {
+      width: 170px;
+      margin: 150px auto 0;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(16, 34, 55, .92), rgba(13, 27, 42, .92));
+      border-radius: 10px;
+      padding: 14px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .03);
+    }
+
+    .sat-id {
+      font-size: 32px;
+      font-weight: 850;
+      color: var(--cyan);
+      letter-spacing: .08em;
+      text-align: center;
+    }
+
+    .field {
+      height: 56px;
+      border: 1px solid var(--line);
+      background: #0d1b2a;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      color: var(--muted);
+      margin: 18px 0;
+    }
+
+    .cta {
+      width: 100%;
+      height: 52px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), #188dff);
+      font-weight: 750;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .metric {
+      flex: 1;
+      min-height: 82px;
+    }
+
+    .metric b {
+      display: block;
+      font-size: 24px;
+      margin-top: 8px;
+    }
+
+    .quick {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .quick .card {
+      min-height: 72px;
+      padding: 10px 6px;
+      text-align: center;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .quick b {
+      display: block;
+      color: var(--cyan);
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .quick svg {
+      display: block;
+      width: 22px;
+      height: 22px;
+      margin: 0 auto 8px;
+      color: var(--cyan);
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      background: linear-gradient(180deg, #0d1b2a, #07101a);
+      border: 1px solid #1c2d44;
+      border-radius: 16px;
+      width: 330px;
+      padding: 34px 24px 24px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.8);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 24px 0 16px;
+      color: #3b4d61;
+      font-size: 13px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #1c2d44;
+    }
+    .divider::before { margin-right: 12px; }
+    .divider::after { margin-left: 12px; }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      color: var(--muted);
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 72px;
+      border-top: 1px solid rgba(33, 53, 78, .72);
+      background: rgba(5, 11, 24, .96);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      z-index: 2;
+    }
+
+    .btn-loader {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-bottom-color: #fff;
+      border-radius: 50%;
+      display: inline-block;
+      box-sizing: border-box;
+      animation: rotation 1s linear infinite;
+    }
+    @keyframes rotation {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .nav button {
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      padding: 8px 0;
+      color: var(--muted);
+      font-size: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .nav button.active { color: var(--cyan); box-shadow: none; background: transparent; }
+    .nav svg {
+      display: block;
+      width: 21px;
+      height: 21px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ring {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 4px solid var(--green);
+      margin: 28px auto 18px;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 18px rgba(0, 230, 118, .04), 0 0 0 38px rgba(0, 212, 255, .035);
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    .ring-icon {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 10px;
+      color: var(--green);
+    }
+
+    .ring-icon svg {
+      width: 46px;
+      height: 46px;
+    }
+
+    .settings-chevron {
+      width: 20px;
+      height: 20px;
+      color: var(--muted);
+    }
+
+    .settings-chevron svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .gauge {
+      width: 220px;
+      height: 150px;
+      margin: 36px auto 8px;
+      border-radius: 220px 220px 0 0;
+      border: 12px solid #143253;
+      border-bottom: 0;
+      position: relative;
+    }
+
+    .gauge::before {
+      content: "";
+      position: absolute;
+      inset: -12px -12px auto -12px;
+      height: 150px;
+      border-radius: 220px 220px 0 0;
+      border: 12px solid var(--cyan);
+      border-bottom: 0;
+      clip-path: polygon(0 0, 78% 0, 54% 100%, 0 100%);
+    }
+
+    .needle {
+      position: absolute;
+      width: 86px;
+      height: 4px;
+      background: white;
+      left: 50%;
+      bottom: 12px;
+      transform-origin: left center;
+      transform: rotate(-48deg);
+      border-radius: 99px;
+    }
+
+    .plan {
+      margin: 10px 0;
+      position: relative;
+    }
+
+    .badge {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      padding: 5px 8px;
+      border-radius: 7px;
+      background: var(--blue);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .chart {
+      height: 145px;
+      display: flex;
+      align-items: end;
+      gap: 4px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(33, 53, 78, .75);
+      margin-top: 14px;
+    }
+
+    .chart i {
+      width: 7px;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(var(--cyan), var(--blue));
+    }
+
+    .list .card { margin: 10px 0; }
+
+    .avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      margin: 28px auto 14px;
+      background:
+        radial-gradient(circle at 50% 33%, #a9b7c8 0 12px, transparent 13px),
+        radial-gradient(ellipse at 50% 72%, #b4c0ce 0 27px, transparent 28px),
+        #192d49;
+      border: 1px solid var(--line);
+    }
+
+    .toggle {
+      width: 36px;
+      height: 20px;
+      border-radius: 99px;
+      background: #5a6b80;
+      padding: 2px;
+    }
+
+    .toggle.on { background: var(--green); }
+    .toggle i {
+      display: block;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: white;
+    }
+    .toggle.on i { margin-left: 16px; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+    }
+
+    .thumb {
+      border: 1px solid var(--line);
+      background: rgba(13, 27, 42, .8);
+      border-radius: 10px;
+      min-height: 110px;
+      padding: 12px;
+      cursor: pointer;
+    }
+
+    .thumb.active {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 1px rgba(0, 212, 255, .25);
+    }
+
+    .thumb-title {
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .thumb-lines i {
+      display: block;
+      height: 7px;
+      border-radius: 99px;
+      background: #21354e;
+      margin: 7px 0;
+    }
+
+    @keyframes float {
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    @keyframes pulse {
+      50% { box-shadow: 0 0 0 24px rgba(0, 230, 118, .03), 0 0 0 48px rgba(0, 212, 255, .025); }
+    }
+
+    @media (max-width: 860px) {
+      header { align-items: flex-start; flex-direction: column; }
+      .actions { justify-content: flex-start; }
+      .stage { grid-template-columns: 1fr; }
+      .phone { position: relative; top: 0; margin: 0 auto; width: min(330px, calc(100vw - 28px)); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <div class="mark"></div>
+        <div>
+          <h1>Qian<span style="color:var(--blue)">fan</span> 千帆 Satellite Link</h1>
+          <div class="sub">APK HTML preview - bina install kiye app screens dekhein</div>
+        </div>
+      </div>
+      <div class="actions" id="screenButtons"></div>
+    </header>
+
+    <main class="stage">
+      <section class="phone" aria-label="Phone preview">
+        <div class="stars"></div>
+
+        <section class="screen active splash-screen" data-screen="splash">
+          <video class="splash-video" src="assets/splash-bg.webm" autoplay muted playsinline preload="auto"></video>
+          <div class="splash-dim"></div>
+          <div class="splash-earth"></div>
+          <div class="content center">
+            <div class="splash-logo">
+              <div class="signal splash-signal"><span></span><span></span><span></span></div>
+              <div class="brand-name"><span>Qian<span class="blue">fan</span></span><span class="brand-cn">千帆</span></div>
+              <div class="cyan" style="font-size:16px;font-weight:700;margin-top:8px">Satellite Internet</div>
+              <div class="splash-copy">Initializing...</div>
+              <div class="splash-loader"><i></i></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen loading-screen" data-screen="loading">
+          <video class="loading-video" src="assets/loading-bg.webm" muted playsinline preload="auto"></video>
+          <div class="loading-dim"></div>
+          <div class="content">
+            <div class="spinner"></div>
+            <div class="bar loading-progress"><i id="loadingBar"></i></div>
+            <div class="loading-percent" id="loadingPercent">55%</div>
+            <div class="loading-note">Establishing connection<br>with satellite...</div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="activation">
+          <div class="content">
+            <div class="topbar">First Activation</div>
+            <div style="display:flex;justify-content:center;margin: 30px 0 20px;position:relative">
+              <div style="position:absolute;width:120px;height:120px;background:radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%"></div>
+              <img src="assets/satellite.png" style="width:140px;position:relative;z-index:2;filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.2)); animation: float 4s ease-in-out infinite;">
+            </div>
+            <div class="center title" style="font-size:26px;margin-bottom:12px">Welcome To Qian<span style="color:var(--blue)">fan</span> 千帆</div>
+            <p class="center muted" style="margin-bottom:12px">Your Satellite ID</p>
+            <div class="card" style="background:linear-gradient(180deg, #0f1e32, #08101c);border:1px solid rgba(0,212,255,0.4);box-shadow:0 4px 12px rgba(0,212,255,0.2);padding:24px;border-radius:16px;margin-bottom:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:16px" onclick="copyId()">
+              <div class="sat-id" id="satId" style="font-size:30px; letter-spacing:1px; white-space:nowrap;color:var(--cyan)">28475 19362</div>
+              <svg style="width:24px;height:24px;color:var(--cyan);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </div>
+            
+            <button class="cta" style="margin-top:16px;background:var(--green);color:white;box-shadow:0 4px 8px rgba(0,212,255,0.4)" onclick="showScreen('home')">Continue</button>
+            <div class="center" style="margin-top:24px">
+              <a href="#" class="cyan" style="text-decoration:none" onclick="enterReferral(); return false;">Have a Referral Code?</a>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="login">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back"></span>Satellite ID Login</div>
+            <div class="center" style="margin-top:90px">
+              <div class="title-xl">Qian<span style="color:var(--blue)">fan</span> 千帆</div>
+              <div class="cyan">Satellite Internet</div>
+            </div>
+            <div class="field">Enter Your 10-Digit Satellite ID</div>
+            <button class="cta" onclick="showScreen('home')">Continue</button>
+            <button style="width:100%;margin-top:12px">Paste ID</button>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="home">
+          <div class="content">
+            <div class="topbar"><span></span><span class="settings-link" onclick="showScreen('settings')"></span></div>
+            <h2 style="margin:0;font-size:18px">Qian<span style="color:var(--blue)">fan</span> 千帆</h2>
+            <p class="red" style="margin:4px 0 18px">Disconnected</p>
+            <div class="card" onclick="showScreen('connection')">
+              <div class="row">
+                <div>
+                  <div class="muted">Connection Status</div>
+                  <h3 class="red" style="margin:8px 0 4px">Disconnected</h3>
+                  <div class="muted">Not connected to any satellite</div>
+                </div>
+                <div class="signal" style="width:64px;height:46px;margin:0"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:10px">
+              <div class="card metric"><span class="muted">Download</span><b id="homeDownloadVal">0.0</b><span class="muted">Mbps</span></div>
+              <div class="card metric"><span class="muted">Upload</span><b id="homeUploadVal">0.0</b><span class="muted">Mbps</span></div>
+            </div>
+            <div class="card" style="margin-top:10px">
+              <div class="muted">Data Usage</div>
+              <h3 style="margin:8px 0">0 GB <span class="muted" style="font-size:12px">/ 300 GB</span></h3>
+              <div class="bar"><i style="width:0%;background:var(--green)"></i></div>
+            </div>
+            <div class="quick">
+              <div class="card" onclick="showScreen('connection')"><span data-icon="connect"></span>Connect</div>
+              <div class="card" onclick="showScreen('packages')"><span data-icon="box"></span>Packages</div>
+              <div class="card" onclick="showScreen('billing')"><span data-icon="wallet"></span>Billing</div>
+              <div class="card" onclick="showScreen('support')"><span data-icon="support"></span>Support</div>
+            </div>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="connection">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Connection</div>
+            <div class="ring" style="border-color:var(--red)">
+              <div class="center">
+                <div class="ring-icon" data-icon="connect"></div>
+                <b class="red">Disconnected</b>
+                <div class="muted" style="font-size:12px">No Signal</div>
+              </div>
+            </div>
+            <div class="list">
+              <div class="row card"><span class="muted">Satellite</span><b>-</b></div>
+              <div class="row card"><span class="muted">Satellite ID</span><b>-</b></div>
+              <div class="row card"><span class="muted">Latency</span><b>-</b></div>
+              <div class="row card"><span class="muted">Signal Strength</span><b class="muted">-</b></div>
+            </div>
+            <button class="cta" style="background:var(--green);color:white;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px" onclick="connectToSatellite(this)">Connect</button>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="speed">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Speed Test</div>
+            <div class="row">
+              <div class="card center metric"><span class="muted">Ping</span><b id="speedPingVal">28</b><span class="muted">ms</span></div>
+              <div class="card center metric"><span class="muted">Jitter</span><b id="speedJitterVal">6</b><span class="muted">ms</span></div>
+              <div class="card center metric"><span class="muted">Loss</span><b id="speedLossVal">0</b><span class="muted">%</span></div>
+            </div>
+            <div class="gauge"><i class="needle" id="speedNeedle"></i></div>
+            <div class="center"><div class="title-xl" id="speedMainVal">0.0</div><div class="muted">Mbps</div><p class="cyan" id="speedMainLbl">Download</p></div>
+            <div class="row" style="margin-top:14px">
+              <div class="card" style="flex:1"><span style="font-size:28px" id="speedDownloadVal">0.0</span> <span class="muted">Mbps</span><br><span class="cyan">Download</span></div>
+              <div class="card" style="flex:1"><span style="font-size:28px" id="speedUploadVal">0.0</span> <span class="muted">Mbps</span><br><span class="cyan">Upload</span></div>
+            </div>
+            <button class="cta" style="margin-top:14px" id="speedTestBtn" onclick="startSpeedTest()">Start Test</button>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="packages">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Packages</div>
+            <div class="row card center"><span class="cyan">All Plans</span><span class="muted">My Plan</span></div>
+            <div class="card plan active"><span class="badge" style="background:var(--blue);width:104px">Your current plan</span><b>Free</b><span class="row"><span>300 GB<br><span class="muted">Just for new customers</span></span><b>Free</b></span></div>
+            <div class="card plan"><b>Basic</b><span class="row"><span>25 Mbps<br><span class="muted">100 GB / Month</span></span><b>$1.25</b></span></div>
+            <div class="card plan"><b>Standard</b><span class="row"><span>50 Mbps<br><span class="muted">200 GB / Month</span></span><b>$2.50</b></span></div>
+            <div class="card plan"><b>Premium</b><span class="row"><span>100 Mbps<br><span class="muted">500 GB / Month</span></span><b>$5.00</b></span></div>
+            <div class="card plan"><b>Ultimate</b><span class="row"><span>150 Mbps<br><span class="muted">Unlimited Data</span></span><b>$20.00</b></span></div>
+            <button class="cta" onclick="showScreen('billing')">Change Plan</button>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="usage">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Data Usage</div>
+            <div class="card">
+              <span class="muted">This Month</span>
+              <h3>0 GB <span class="muted" style="font-size:12px">/ 300 GB</span></h3>
+              <div class="bar"><i style="width:0%;background:var(--green)"></i></div>
+            </div>
+            <div class="card" style="margin-top:14px">
+              <b>Usage History (GB)</b>
+              <div class="chart" id="chart"></div>
+            </div>
+            <div class="row card"><span>Today</span><b>0 GB</b></div>
+            <div class="row card"><span>This Week</span><b>0 GB</b></div>
+            <div class="row card"><span>Remaining</span><b>300 GB</b></div>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="billing">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Billing</div>
+            <div class="row card center"><span class="cyan">Overview</span><span class="muted">History</span></div>
+            <div class="card" style="margin-top:14px"><span class="muted">Current Plan</span><h3>Free 300 GB</h3><h2>Free</h2></div>
+            <div class="card" style="margin-top:14px"><span class="muted">Current Balance</span><h2>$0.00</h2><span class="green">You are all paid up!</span></div>
+            <div class="card" style="margin-top:14px"><span class="muted">Payment Method</span><h3>Add New</h3></div>
+            <button class="cta" style="margin-top:14px">Manage Billing</button>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="support">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Support</div>
+            <h3>How can we help you?</h3>
+            <div class="field">Search for help topics...</div>
+            <div class="list">
+              <div class="row card" style="align-items:center;cursor:pointer">
+                <div><b>FAQs</b><br><span class="muted">Find answers to common questions</span></div>
+                <svg style="width:20px;height:20px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+              </div>
+              <div class="row card" style="align-items:center;cursor:pointer">
+                <div><b>Contact Support</b><br><span class="muted">Chat or email our support team</span></div>
+                <svg style="width:20px;height:20px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+              </div>
+              <div class="row card" style="align-items:center;cursor:pointer">
+                <div><b>System Status</b><br><span class="muted">Check network status</span></div>
+                <svg style="width:20px;height:20px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+              </div>
+              <div class="row card" style="align-items:center;cursor:pointer">
+                <div><b>Report an Issue</b><br><span class="muted">Let us know if something is wrong</span></div>
+                <svg style="width:20px;height:20px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg>
+              </div>
+            </div>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="profile">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Profile</div>
+            <div class="avatar"></div>
+            <div class="center"><h3>Qian<span style="color:var(--blue)">fan</span> 千帆</h3><p class="muted">Satellite Internet</p></div>
+            <div class="list">
+              <div class="row card" style="cursor:pointer" onclick="showScreen('referral')">
+                <span class="green">Refer & Earn 100GB</span>
+                <div style="display:flex;align-items:center;gap:8px"><b class="green">Get free data</b><svg style="width:18px;height:18px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></div>
+              </div>
+              <div class="row card" style="cursor:pointer">
+                <span>Satellite ID</span>
+                <div style="display:flex;align-items:center;gap:8px"><b>28475 19362</b><svg style="width:18px;height:18px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></div>
+              </div>
+              <div class="row card" style="cursor:pointer">
+                <span>Payment Methods</span>
+                <div style="display:flex;align-items:center;gap:8px"><b>Add New</b><svg style="width:18px;height:18px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></div>
+              </div>
+              <div class="row card" style="cursor:pointer">
+                <span>Security</span>
+                <div style="display:flex;align-items:center;gap:8px"><b class="green">Enabled</b><svg style="width:18px;height:18px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></div>
+              </div>
+              <div class="row card" style="cursor:pointer">
+                <span>About Qian<span style="color:var(--blue)">fan</span> 千帆</span>
+                <div style="display:flex;align-items:center;gap:8px"><b>14.91.0</b><svg style="width:18px;height:18px;color:var(--muted);stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></div>
+              </div>
+            </div>
+            <button class="cta" style="background:transparent;border:1px solid var(--red);color:var(--red);margin-top:12px">Sign Out</button>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="referral">
+          <div class="content center">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('profile')"></span>Refer & Earn</div>
+            
+            <div style="width:140px;height:140px;border-radius:50%;background:rgba(0,212,255,0.2);display:flex;align-items:center;justify-content:center;margin:40px auto 20px;">
+              <div style="width:100px;height:100px;border-radius:50%;background:rgba(0,212,255,0.4);display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-weight:bold;">100GB</div>
+            </div>
+            
+            <h2 style="margin:20px 0 10px">Share Your Code</h2>
+            <p class="muted" style="margin-bottom:0">Invite friends and you both get</p>
+            <p class="muted" style="margin-bottom:30px">100GB of free satellite data!</p>
+            
+            <div class="card" style="background:var(--card);padding:24px;border-radius:12px;margin-bottom:24px">
+              <div style="font-size:32px;color:var(--cyan);letter-spacing:2px;font-weight:bold" id="myReferralCode">28475X</div>
+            </div>
+            
+            <button class="cta" style="background:var(--green);margin-bottom:12px" onclick="copyReferral()">Copy My Code</button>
+            <button class="cta" style="background:var(--blue)" onclick="enterReferral()">Redeem a Code</button>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+
+        <section class="screen" data-screen="settings">
+          <div class="content">
+            <div class="topbar"><span class="back" data-icon="back" onclick="showScreen('home')"></span>Settings</div>
+            <p class="muted">General</p>
+            <div class="row card"><span><b>Auto Connect</b><br><span class="muted">Connect automatically on launch</span></span><span class="toggle on"><i></i></span></div>
+            <div class="row card"><span><b>Data Saver</b><br><span class="muted">Reduce data usage</span></span><span class="toggle"><i></i></span></div>
+            <div class="row card"><span><b>Speed Test on Connect</b><br><span class="muted">Run speed test after connecting</span></span><span class="toggle on"><i></i></span></div>
+            <p class="muted">Network</p>
+            <div class="row card"><span>Preferred Server</span><b>Auto</b></div>
+            <div class="row card"><span>Advanced Settings</span><span class="settings-chevron" data-icon="chevron-right"></span></div>
+            <p class="muted">About</p>
+            <div class="row card"><span>App Version</span><b>14.91.0</b></div>
+          </div>
+          <nav class="nav"></nav>
+        </section>
+      </section>
+
+      <section>
+        <div class="gallery" id="gallery"></div>
+      </section>
+    </main>
+    <div class="overlay" id="errorOverlay" onclick="this.style.display='none'">
+      <div class="modal" onclick="event.stopPropagation()">
+        <span class="modal-close" onclick="document.getElementById('errorOverlay').style.display='none'">X</span>
+        <svg style="width:72px;height:72px;margin:10px auto 20px;color:var(--red);filter:drop-shadow(0 0 16px rgba(255,82,82,0.4))" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="8" cy="9.5" r="1.5" fill="currentColor"></circle>
+          <circle cx="16" cy="9.5" r="1.5" fill="currentColor"></circle>
+          <path d="M16 16c-1.5-2-2.5-2-4-2s-2.5 0-4 2"></path>
+        </svg>
+        <div class="title" style="color:var(--red)">Incompatible Device</div>
+        <div class="muted" style="margin-top:12px;line-height:1.4">Your device model is not<br>compatible with satellite internet.</div>
+        <div class="divider">What would you like to do?</div>
+        <button class="cta" style="background:transparent;border:1px solid #28476b;color:white;display:flex;align-items:center;justify-content:center;gap:10px" onclick="document.getElementById('errorOverlay').style.display='none'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+          Change Your Device
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function connectToSatellite(btn) {
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-loader"></span> Connecting...';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = 'Connect';
+        document.getElementById('errorOverlay').style.display='flex';
+      }, 2000);
+    }
+
+    const screens = [
+      ["splash", "Splash"],
+      ["loading", "Loading"],
+      ["activation", "Activation"],
+      ["login", "Login"],
+      ["home", "Dashboard"],
+      ["connection", "Connection"],
+      ["speed", "Speed Test"],
+      ["packages", "Packages"],
+      ["usage", "Usage"],
+      ["billing", "Billing"],
+      ["support", "Support"],
+      ["profile", "Profile"],
+      ["settings", "Settings"]
+    ];
+
+    const navItems = [
+      ["home", "home", "Home"],
+      ["usage", "usage", "Usage"],
+      ["speed", "speed", "Speed"],
+      ["packages", "box", "Packages"],
+      ["profile", "user", "Profile"]
+    ];
+
+    const buttons = document.getElementById("screenButtons");
+    const gallery = document.getElementById("gallery");
+
+    screens.forEach(([id, label]) => {
+      const button = document.createElement("button");
+      button.textContent = label;
+      button.onclick = () => showScreen(id);
+      button.dataset.target = id;
+      buttons.appendChild(button);
+
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
+      thumb.dataset.target = id;
+      thumb.innerHTML = `<div class="thumb-title">${label}</div><div class="thumb-lines"><i style="width:90%"></i><i style="width:64%"></i><i style="width:78%"></i><i style="width:52%"></i></div>`;
+      thumb.onclick = () => showScreen(id);
+      gallery.appendChild(thumb);
+    });
+
+    document.querySelectorAll(".nav").forEach(nav => {
+      navItems.forEach(([id, icon, label]) => {
+        const button = document.createElement("button");
+        button.innerHTML = `${iconSvg(icon)}<span>${label}</span>`;
+        button.onclick = () => showScreen(id);
+        button.dataset.target = id;
+        nav.appendChild(button);
+      });
+    });
+
+    document.querySelectorAll("[data-icon]").forEach(slot => {
+      slot.innerHTML = iconSvg(slot.dataset.icon);
+    });
+
+    const chart = document.getElementById("chart");
+    for (let i = 0; i < 28; i += 1) {
+      const bar = document.createElement("i");
+      bar.style.height = `0px`;
+      chart.appendChild(bar);
+    }
+
+    function showScreen(id) {
+      const activeNav = ({ connection: "home", billing: "profile", settings: "profile" })[id] || id;
+      document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.toggle("active", screen.dataset.screen === id);
+      });
+      document.querySelectorAll("[data-target]").forEach(el => {
+        el.classList.toggle("active", el.dataset.target === id || el.dataset.target === activeNav);
+      });
+      const splashVideo = document.querySelector(".splash-video");
+      const loadingVideo = document.querySelector(".loading-video");
+      if (splashVideo) {
+        if (id === "splash") {
+          splashVideo.currentTime = 0;
+          splashVideo.play().catch(() => {});
+          window.clearTimeout(window.splashTimer);
+          window.splashTimer = window.setTimeout(() => showScreen("loading"), 9000);
+        } else {
+          splashVideo.pause();
+          window.clearTimeout(window.splashTimer);
+        }
+      }
+      if (loadingVideo) {
+        if (id === "loading") {
+          loadingVideo.currentTime = 0;
+          loadingVideo.play().catch(() => {});
+          window.clearTimeout(window.loadingTimer);
+          window.cancelAnimationFrame(window.loadingFrame);
+          animateLoadingProgress();
+          window.loadingTimer = window.setTimeout(() => showScreen("activation"), 5000);
+        } else {
+          loadingVideo.pause();
+          window.clearTimeout(window.loadingTimer);
+          window.cancelAnimationFrame(window.loadingFrame);
+        }
+      }
+    }
+
+    function iconSvg(name) {
+      const paths = {
+        home: '<path d="M3 10.5 12 3l9 7.5"></path><path d="M5.5 9.5V21h13V9.5"></path><path d="M9.5 21v-6h5v6"></path>',
+        usage: '<path d="M4 19V5"></path><path d="M4 19h17"></path><path d="M8 16v-5"></path><path d="M12 16V8"></path><path d="M16 16v-9"></path>',
+        speed: '<path d="M4 14a8 8 0 1 1 16 0"></path><path d="m13 13 4-4"></path><path d="M12 14h.01"></path>',
+        box: '<path d="M4 7.5 12 3l8 4.5-8 4.5-8-4.5Z"></path><path d="M4 7.5v9L12 21l8-4.5v-9"></path><path d="M12 12v9"></path>',
+        user: '<path d="M20 21a8 8 0 0 0-16 0"></path><circle cx="12" cy="7" r="4"></circle>',
+        connect: '<path d="M5 12a7 7 0 0 1 14 0"></path><path d="M8 15a4 4 0 0 1 8 0"></path><path d="M12 18h.01"></path>',
+        wallet: '<path d="M4 7h15a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12"></path><path d="M16 13h5"></path><circle cx="17.5" cy="13" r=".8"></circle>',
+        support: '<circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.7 2.7 0 0 1 5.1 1.3c0 2-2.6 2.2-2.6 4"></path><path d="M12 18h.01"></path>',
+        back: '<path d="M15 18 9 12l6-6"></path>',
+        "chevron-right": '<path d="m9 18 6-6-6-6"></path>',
+        satellite: '<path d="M12 3v4"></path><path d="M8 7h8"></path><path d="M7 10a5 5 0 0 0 10 0"></path><path d="M12 15v6"></path><path d="M8 19h8"></path><path d="M5 5l3 3"></path><path d="M19 5l-3 3"></path>'
+      };
+      return `<svg viewBox="0 0 24 24" aria-hidden="true">${paths[name]}</svg>`;
+    }
+
+    function animateLoadingProgress() {
+      const bar = document.getElementById("loadingBar");
+      const label = document.getElementById("loadingPercent");
+      const started = Date.now();
+      const tick = () => {
+        const elapsed = Math.min(Date.now() - started, 5000);
+        const pct = 55 + (elapsed / 5000) * 45;
+        if (bar) bar.style.width = `${pct}%`;
+        if (label) label.textContent = `${Math.round(pct)}%`;
+        if (elapsed < 5000) window.loadingFrame = window.requestAnimationFrame(tick);
+      };
+      tick();
+    }
+
+    function copyId() {
+      navigator.clipboard?.writeText(document.getElementById("satId").textContent);
+      alert("Satellite ID copied");
+    }
+
+    function copyReferral() {
+      navigator.clipboard?.writeText(document.getElementById("myReferralCode").textContent);
+      alert("Referral Code copied!");
+    }
+
+    function enterReferral() {
+      let code = prompt("Enter Referral Code\ne.g. 28475X");
+      if (code && code.trim().length >= 5) {
+        alert("Code accepted! 100GB Free Data Added.");
+      } else if (code) {
+        alert("Invalid code.");
+      }
+    }
+
+    function startSpeedTest() {
+      const btn = document.getElementById("speedTestBtn");
+      const mainVal = document.getElementById("speedMainVal");
+      const mainLbl = document.getElementById("speedMainLbl");
+      const upVal = document.getElementById("speedUploadVal");
+      const needle = document.getElementById("speedNeedle");
+      const pingVal = document.getElementById("speedPingVal");
+      const jitterVal = document.getElementById("speedJitterVal");
+      const lossVal = document.getElementById("speedLossVal");
+      
+      if (btn.textContent === "Testing...") return;
+      
+      btn.textContent = "Testing...";
+      let state = 1; // 1=down, 2=up
+      const finalDown = 350 + Math.random() * 700;
+      const finalUp = finalDown * (0.2 + Math.random() * 0.3);
+      const finalPing = 20 + Math.random() * 20;
+      const finalJitter = 2 + Math.random() * 8;
+      const finalLoss = Math.random() < 0.1 ? 1 : 0;
+      
+      const start = Date.now();
+      const tick = () => {
+        const elapsed = Date.now() - start;
+        if (state === 1) {
+          mainLbl.textContent = "Downloading...";
+          pingVal.textContent = Math.max(10, finalPing + (Math.random() * 10 - 5)).toFixed(0);
+          jitterVal.textContent = Math.max(1, finalJitter + (Math.random() * 4 - 2)).toFixed(0);
+          lossVal.textContent = "0";
+          if (elapsed > 3000) {
+            state = 2;
+            mainVal.textContent = finalDown.toFixed(1);
+            document.getElementById("speedDownloadVal").textContent = finalDown.toFixed(1);
+          } else {
+            let cur = finalDown * (0.6 + Math.random() * 0.4) * (elapsed / 3000);
+            if (cur > finalDown) cur = finalDown;
+            mainVal.textContent = cur.toFixed(1);
+            document.getElementById("speedDownloadVal").textContent = cur.toFixed(1);
+            let rot = -100 + (cur / 1050) * 200;
+            if (rot > 100) rot = 100;
+            needle.style.transform = `rotate(${rot}deg)`;
+            window.requestAnimationFrame(tick);
+          }
+        }
+        if (state === 2) {
+          mainLbl.textContent = "Download";
+          document.querySelector("#speedUploadVal + span + br + span").textContent = "Uploading...";
+          pingVal.textContent = Math.max(10, finalPing + (Math.random() * 10 - 5)).toFixed(0);
+          jitterVal.textContent = Math.max(1, finalJitter + (Math.random() * 4 - 2)).toFixed(0);
+          if (elapsed > 6000) {
+            upVal.textContent = finalUp.toFixed(1);
+            document.querySelector("#speedUploadVal + span + br + span").textContent = "Upload";
+            btn.textContent = "Test Again";
+            pingVal.textContent = finalPing.toFixed(0);
+            jitterVal.textContent = finalJitter.toFixed(0);
+            lossVal.textContent = finalLoss.toFixed(0);
+            document.getElementById("homeDownloadVal").textContent = finalDown.toFixed(1);
+            document.getElementById("homeUploadVal").textContent = finalUp.toFixed(1);
+          } else {
+            let cur = finalUp * (0.6 + Math.random() * 0.4) * ((elapsed - 3000) / 3000);
+            if (cur > finalUp) cur = finalUp;
+            upVal.textContent = cur.toFixed(1);
+            let rot = -100 + (cur / 1050) * 200;
+            if (rot > 100) rot = 100;
+            needle.style.transform = `rotate(${rot}deg)`;
+            window.requestAnimationFrame(tick);
+          }
+        }
+      };
+      tick();
+    }
+
+    showScreen("splash");
+  </script>
+</body>
+</html>
